@@ -1,6 +1,8 @@
 package main
 
 import (
+	"jimmytechnology-golang/config"
+	"jimmytechnology-golang/migrations"
 	"jimmytechnology-golang/routes"
 	"log"
 	"os"
@@ -15,6 +17,10 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading env file")
 	}
+
+	config.InitDB()
+	defer config.CloseDB()
+	migrations.Migrate()
 
 	r := gin.Default()
 
